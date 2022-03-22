@@ -20,4 +20,4 @@ feign:
 
 open-critic-client:
   name: openCriticApi
-  url: api.opencritic.com/api
+  url: https://api.opencritic.com/api

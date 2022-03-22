@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/game-of-the-year")
 public class GameController implements GameApi {
 
-    private final GameModule gameModule;
+  private final GameModule gameModule;
 
-    @Override
-    public ResponseEntity<Game> getGameById(String id) {
-        return ResponseEntity.ok(gameModule.getGame(id));
-    }
-
+  @Override
+  public ResponseEntity<Game> getGameById(String id) {
+    return ResponseEntity.ok(gameModule.getGame(id));
+  }
 }

@@ -16,19 +16,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @RequiredArgsConstructor
 public class ExceptionHandlerAdvice {
 
-    /**
-     * This method is used to handle custom API exceptions.
-     *
-     * @param exception the not found exception
-     * @return custom error message and http status
-     */
-    @ExceptionHandler(CustomApiException.class)
-    public ResponseEntity<Error> handleCustomApiExceptions(CustomApiException exception) {
-        final Error error = Error.builder()
-                        .timestamp(OffsetDateTime.now())
-                        .status(exception.getHttpStatus().value())
-                        .error(exception.getHttpReasonPhrase())
-                        .message(exception.getMessage()).build();
-        return new ResponseEntity<>(error, exception.getHttpStatus());
-    }
+  /**
+   * This method is used to handle custom API exceptions.
+   *
+   * @param exception the not found exception
+   * @return custom error message and http status
+   */
+  @ExceptionHandler(CustomApiException.class)
+  public ResponseEntity<Error> handleCustomApiExceptions(CustomApiException exception) {
+    final Error error =
+        Error.builder()
+            .timestamp(OffsetDateTime.now())
+            .status(exception.getHttpStatus().value())
+            .error(exception.getHttpReasonPhrase())
+            .message(exception.getMessage())
+            .build();
+    return new ResponseEntity<>(error, exception.getHttpStatus());
+  }
 }

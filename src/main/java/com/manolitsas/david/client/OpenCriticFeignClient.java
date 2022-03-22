@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
-        name = "${open-critic-client.name}",
-        url = "${open-critic-client.url}",
-        configuration = OpenCriticFeignClientConfiguration.class)
+    name = "${open-critic-client.name}",
+    url = "${open-critic-client.url}",
+    configuration = OpenCriticFeignClientConfiguration.class)
 public interface OpenCriticFeignClient {
 
-    @GetMapping(value = "/game/{id}", consumes = "application/json", produces = "application/json")
-    OpenCriticGameResponse findGameById(@PathVariable String id);
+  @GetMapping(value = "/game/{id}")
+  OpenCriticGameResponse findGameById(@PathVariable("id") String id);
 }
