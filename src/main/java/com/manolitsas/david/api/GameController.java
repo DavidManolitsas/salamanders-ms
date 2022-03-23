@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/game-of-the-year")
+@RequestMapping("/api")
 public class GameController implements GameApi {
 
   private final GameModule gameModule;

@@ -1,7 +1,3 @@
-server:
-  port: 8036
-  servlet:
-    context-path: /
 
 management:
   endpoints:

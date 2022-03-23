@@ -9,11 +9,12 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class Game {
-  private String releaseYear;
   private String name;
   private String description;
+  private String summary;
   private String developer;
   private String publisher;
+  private String releaseYear;
   private Integer score;
   private URL imageUrl;
 }
