@@ -3,11 +3,11 @@ package com.manolitsas.david.mapper;
 import com.manolitsas.david.client.model.Company;
 import com.manolitsas.david.client.model.MastheadScreenshot;
 import com.manolitsas.david.client.model.OpenCriticGameResponse;
+import com.manolitsas.david.client.model.ReviewSummary;
 import com.manolitsas.david.model.Game;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 import org.mapstruct.*;
 
 @Mapper(
@@ -19,6 +19,10 @@ public interface GameMapper {
   @Mapping(target = "name", source = "response.name")
   @Mapping(target = "score", source = "response.averageScore", qualifiedByName = "DoubleToInt")
   @Mapping(target = "description", source = "response.description")
+  @Mapping(
+      target = "summary",
+      source = "response.reviewSummary",
+      qualifiedByName = "ExtractReviewSummary")
   @Mapping(
       target = "developer",
       source = "response.companies",
@@ -39,24 +43,37 @@ public interface GameMapper {
     return (int) Math.round(averageScore);
   }
 
+  @Named("ExtractReviewSummary")
+  default String extractSummary(ReviewSummary reviewSummary) {
+    return reviewSummary.getSummary();
+  }
+
   @Named("ExtractDeveloper")
   default String extractDeveloper(List<Company> companies) {
-    return Objects.requireNonNull(
-            companies.stream()
-                .filter(c -> c.getType().equals(Company.Type.DEVELOPER))
-                .findFirst()
-                .orElse(null))
-        .getName();
+    Company company =
+        companies.stream()
+            .filter(c -> c.getType().equals(Company.Type.DEVELOPER))
+            .findFirst()
+            .orElse(null);
+    if (company == null) {
+      return extractPublisher(companies);
+    }
+
+    return company.getName();
   }
 
   @Named("ExtractPublisher")
   default String extractPublisher(List<Company> companies) {
-    return Objects.requireNonNull(
-            companies.stream()
-                .filter(c -> c.getType().equals(Company.Type.PUBLISHER))
-                .findFirst()
-                .orElse(null))
-        .getName();
+    Company company =
+        companies.stream()
+            .filter(c -> c.getType().equals(Company.Type.PUBLISHER))
+            .findFirst()
+            .orElse(null);
+    if (company == null) {
+      return extractDeveloper(companies);
+    }
+
+    return company.getName();
   }
 
   @Named("ExtractReleaseYear")
@@ -66,6 +83,10 @@ public interface GameMapper {
 
   @Named("ExtractImageUrl")
   default URL extractImageUrl(MastheadScreenshot mastheadScreenshot) throws MalformedURLException {
+    if (mastheadScreenshot == null) {
+      return null;
+    }
+
     return new URL("https:" + mastheadScreenshot.getFullRes());
   }
 }

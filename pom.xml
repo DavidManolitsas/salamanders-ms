@@ -7,7 +7,7 @@
         <version>2.6.4</version>
     </parent>
     <groupId>groupId</groupId>
-    <artifactId>game-of-the-year-ms</artifactId>
+    <artifactId>salamanders-ms</artifactId>
     <version>1.0</version>
     <developers>
         <developer>
@@ -165,6 +165,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>
+                        <profile>local</profile>
+                    </profiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>
