@@ -32,4 +32,7 @@ public class OpenCriticGameResponse {
 
   @JsonProperty("mastheadScreenshot")
   private MastheadScreenshot mastheadScreenshot;
+
+  @JsonProperty("reviewSummary")
+  private ReviewSummary reviewSummary;
 }

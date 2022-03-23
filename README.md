@@ -1,10 +1,10 @@
-# Game of the Year
+# Salamanders Microservice
 
-Game of the year microservice
+Salamanders Microservice used for collating information from the OpenCritic API.
 
 ## Build Project
 
-To build the project and generate the model classes using Swagger `code-gen`, run:
+To build the project run:
 
 ```bash
 mvn clean sortpom:sort fmt:format install
@@ -18,6 +18,8 @@ mvn clean sortpom:sort fmt:format test
 
 ##  Run the project
 
+To run the project locally run:
+
 ```bash
-mvn spring-boot:run
+ mvn spring-boot:run -Dspring-boot.run.profile=local
 ```
