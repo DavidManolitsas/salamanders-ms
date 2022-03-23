@@ -1,0 +1,23 @@
+server:
+  port: 8036
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+      base-path: /
+      path-mapping:
+        health: healthcheck
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+
+open-critic-client:
+  name: openCriticApi
+  url: https://api.opencritic.com/api
