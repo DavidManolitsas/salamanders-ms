@@ -1,10 +1,9 @@
 package com.manolitsas.david.model;
 
+import java.net.URL;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.net.URL;
 
 @Data
 @AllArgsConstructor
