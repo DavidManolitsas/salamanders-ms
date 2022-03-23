@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class MastheadScreenshot {
 
-    private String fullRes;
-    private String thumbnail;
+  private String fullRes;
+  private String thumbnail;
 }

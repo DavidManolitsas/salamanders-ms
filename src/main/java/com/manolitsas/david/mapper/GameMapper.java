@@ -4,12 +4,10 @@ import com.manolitsas.david.client.model.Company;
 import com.manolitsas.david.client.model.MastheadScreenshot;
 import com.manolitsas.david.client.model.OpenCriticGameResponse;
 import com.manolitsas.david.model.Game;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
-
 import org.mapstruct.*;
 
 @Mapper(
@@ -26,10 +24,13 @@ public interface GameMapper {
       source = "response.companies",
       qualifiedByName = "ExtractDeveloper")
   @Mapping(
-          target = "publisher",
-          source = "response.companies",
-          qualifiedByName = "ExtractPublisher")
-  @Mapping(target = "releaseYear", source = "firstReleaseDate", qualifiedByName = "ExtractReleaseYear")
+      target = "publisher",
+      source = "response.companies",
+      qualifiedByName = "ExtractPublisher")
+  @Mapping(
+      target = "releaseYear",
+      source = "firstReleaseDate",
+      qualifiedByName = "ExtractReleaseYear")
   @Mapping(target = "imageUrl", source = "mastheadScreenshot", qualifiedByName = "ExtractImageUrl")
   Game toGame(OpenCriticGameResponse response);
 
@@ -40,20 +41,22 @@ public interface GameMapper {
 
   @Named("ExtractDeveloper")
   default String extractDeveloper(List<Company> companies) {
-    return Objects.requireNonNull(companies.stream()
-            .filter(c -> c.getType().equals(Company.Type.DEVELOPER))
-            .findFirst()
-            .orElse(null))
+    return Objects.requireNonNull(
+            companies.stream()
+                .filter(c -> c.getType().equals(Company.Type.DEVELOPER))
+                .findFirst()
+                .orElse(null))
         .getName();
   }
 
   @Named("ExtractPublisher")
   default String extractPublisher(List<Company> companies) {
-    return Objects.requireNonNull(companies.stream()
-            .filter(c -> c.getType().equals(Company.Type.PUBLISHER))
-            .findFirst()
-            .orElse(null))
-            .getName();
+    return Objects.requireNonNull(
+            companies.stream()
+                .filter(c -> c.getType().equals(Company.Type.PUBLISHER))
+                .findFirst()
+                .orElse(null))
+        .getName();
   }
 
   @Named("ExtractReleaseYear")
