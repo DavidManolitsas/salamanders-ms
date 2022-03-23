@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Validated
 public interface GameApi {
 
-  @CrossOrigin(origins = "http://localhost:5500")
+  @CrossOrigin
   @GetMapping(value = "/game/{id}")
   ResponseEntity<Game> getGameById(@PathVariable String id);
 }
