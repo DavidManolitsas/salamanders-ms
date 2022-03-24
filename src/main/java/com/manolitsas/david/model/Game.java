@@ -14,7 +14,9 @@ public class Game {
   private String summary;
   private String developer;
   private String publisher;
+  private String releaseDate;
   private String releaseYear;
   private Integer score;
   private URL imageUrl;
+  private URL verticalImageUrl;
 }
