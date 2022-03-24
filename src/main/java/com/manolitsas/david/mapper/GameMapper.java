@@ -1,13 +1,18 @@
 package com.manolitsas.david.mapper;
 
-import com.manolitsas.david.client.model.Company;
-import com.manolitsas.david.client.model.MastheadScreenshot;
-import com.manolitsas.david.client.model.OpenCriticGameResponse;
-import com.manolitsas.david.client.model.ReviewSummary;
+import com.manolitsas.david.client.model.*;
+import com.manolitsas.david.exception.CustomApiException;
 import com.manolitsas.david.model.Game;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import org.mapstruct.*;
 
 @Mapper(
@@ -35,8 +40,16 @@ public interface GameMapper {
       target = "releaseYear",
       source = "firstReleaseDate",
       qualifiedByName = "ExtractReleaseYear")
+  @Mapping(
+      target = "releaseDate",
+      source = "firstReleaseDate",
+      qualifiedByName = "ExtractReleaseDate")
   @Mapping(target = "imageUrl", source = "mastheadScreenshot", qualifiedByName = "ExtractImageUrl")
-  Game toGame(OpenCriticGameResponse response);
+  @Mapping(
+      target = "verticalImageUrl",
+      source = "verticalLogoScreenshot",
+      qualifiedByName = "ExtractImageUrl")
+  Game toGame(GameResponse response);
 
   @Named("DoubleToInt")
   default int castDoubleToInt(double averageScore) {
@@ -81,12 +94,29 @@ public interface GameMapper {
     return firstReleaseDate.substring(0, 4);
   }
 
+  @Named("ExtractReleaseDate")
+  default String getReleaseDate(String firstReleaseDate) {
+    String[] suffixes = {
+      "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th", "th", "th", "th", "th", "th",
+      "th", "th", "th", "th", "th", "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th",
+      "th", "st"
+    };
+
+    Instant instant = Instant.parse(firstReleaseDate);
+    LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneId.of(ZoneOffset.UTC.getId()));
+
+    return date.getDayOfMonth()
+        + suffixes[date.getDayOfMonth()]
+        + " "
+        + date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+  }
+
   @Named("ExtractImageUrl")
-  default URL extractImageUrl(MastheadScreenshot mastheadScreenshot) throws MalformedURLException {
-    if (mastheadScreenshot == null) {
+  default URL extractImageUrl(Screenshot screenshot) throws MalformedURLException {
+    if (screenshot == null) {
       return null;
     }
 
-    return new URL("https:" + mastheadScreenshot.getFullRes());
+    return new URL("https:" + screenshot.getFullRes());
   }
 }

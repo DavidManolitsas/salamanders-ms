@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OpenCriticGameResponse {
+public class GameResponse {
 
   @JsonProperty("name")
   private String name;
@@ -31,8 +31,11 @@ public class OpenCriticGameResponse {
   private String firstReleaseDate;
 
   @JsonProperty("mastheadScreenshot")
-  private MastheadScreenshot mastheadScreenshot;
+  private Screenshot mastheadScreenshot;
 
   @JsonProperty("reviewSummary")
   private ReviewSummary reviewSummary;
+
+  @JsonProperty("verticalLogoScreenshot")
+  private Screenshot verticalLogoScreenshot;
 }
