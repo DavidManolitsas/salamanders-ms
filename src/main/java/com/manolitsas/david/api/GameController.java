@@ -30,5 +30,4 @@ public class GameController implements GameApi {
     System.out.println("getting upcoming");
     return ResponseEntity.ok(gameModule.getUpcomingReleases());
   }
-
 }

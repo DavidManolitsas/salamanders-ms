@@ -19,4 +19,5 @@ public class Game {
   private Integer score;
   private URL imageUrl;
   private URL verticalImageUrl;
+  private URL openCriticUrl;
 }
