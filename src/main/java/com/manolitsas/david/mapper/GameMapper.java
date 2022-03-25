@@ -1,18 +1,13 @@
 package com.manolitsas.david.mapper;
 
 import com.manolitsas.david.client.model.*;
-import com.manolitsas.david.exception.CustomApiException;
 import com.manolitsas.david.model.Game;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.TextStyle;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import org.mapstruct.*;
 
 @Mapper(
@@ -49,8 +44,10 @@ public interface GameMapper {
       target = "verticalImageUrl",
       source = "verticalLogoScreenshot",
       qualifiedByName = "ExtractImageUrl")
+  @Mapping(target = "openCriticUrl", source = "url", qualifiedByName = "StringToUrl")
   Game toGame(GameResponse response);
 
+  // Qualified by name methods
   @Named("DoubleToInt")
   default int castDoubleToInt(double averageScore) {
     return (int) Math.round(averageScore);
@@ -118,5 +115,14 @@ public interface GameMapper {
     }
 
     return new URL("https:" + screenshot.getFullRes());
+  }
+
+  @Named("StringToUrl")
+  default URL castStringToUrl(String url) throws MalformedURLException {
+    if (url == null) {
+      return null;
+    }
+
+    return new URL(url);
   }
 }

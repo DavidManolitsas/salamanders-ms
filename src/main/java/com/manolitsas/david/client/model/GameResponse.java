@@ -38,4 +38,7 @@ public class GameResponse {
 
   @JsonProperty("verticalLogoScreenshot")
   private Screenshot verticalLogoScreenshot;
+
+  @JsonProperty("url")
+  private String url;
 }
