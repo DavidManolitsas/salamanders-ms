@@ -18,4 +18,7 @@ public interface OpenCriticFeignClient {
 
   @GetMapping(value = "/game/recently-released")
   List<GameResponse> findRecentReleases();
+
+  @GetMapping(value = "/game/upcoming")
+  List<GameResponse> findUpcomingReleases();
 }

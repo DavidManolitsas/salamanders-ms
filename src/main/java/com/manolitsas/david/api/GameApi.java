@@ -17,4 +17,7 @@ public interface GameApi {
 
   @GetMapping(value = "/game/recent-releases", produces = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<List<Game>> getRecentReleases();
+
+  @GetMapping(value = "/game/coming-soon", produces = MediaType.APPLICATION_JSON_VALUE)
+  ResponseEntity<List<Game>> getUpcomingReleases();
 }

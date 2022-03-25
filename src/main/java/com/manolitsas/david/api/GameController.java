@@ -24,4 +24,11 @@ public class GameController implements GameApi {
   public ResponseEntity<List<Game>> getRecentReleases() {
     return ResponseEntity.ok(gameModule.getRecentReleases());
   }
+
+  @Override
+  public ResponseEntity<List<Game>> getUpcomingReleases() {
+    System.out.println("getting upcoming");
+    return ResponseEntity.ok(gameModule.getUpcomingReleases());
+  }
+
 }
